@@ -1,0 +1,60 @@
+workflow:
+  steps:
+    - key: TOPIC_DESIGN
+      label: 选题构思
+      autoCompleted: true
+      actions: []
+
+    - key: SCRIPT_CREATION
+      label: 剧本创作
+      requires: [TOPIC_DESIGN]
+      actions:
+        - key: generateScript
+          label: 生成剧本
+          icon: sparkles
+
+    - key: CHARACTER_DESIGN
+      label: 人设设计
+      requires: [SCRIPT_CREATION]
+      actions:
+        - key: generateCharacters
+          label: 生成人设
+          icon: user
+
+    - key: STORYBOARD_DESIGN
+      label: 分镜设计
+      requires: [CHARACTER_DESIGN]
+      actions:
+        - key: generateStoryboard
+          label: 生成分镜
+          icon: layout
+
+    - key: VOICE_GENERATION
+      label: 配音生成
+      requires: [STORYBOARD_DESIGN]
+      actions:
+        - key: generateVoice
+          label: 生成配音
+          icon: volume
+
+    - key: CLIP_GENERATION
+      label: 视频片段生成
+      requires: [STORYBOARD_DESIGN]
+      actions:
+        - key: initClips
+          label: 初始化视频片段
+          icon: clapperboard
+
+    - key: FINAL_COMPOSITION
+      label: 最终合成
+      requires: [CLIP_GENERATION]
+      actions:
+        - key: finalCompose
+          label: 最终合成
+          icon: film
+
+    - key: COPYWRITING
+      label: 文案发布
+      requires: [FINAL_COMPOSITION]
+      autoCompleted: true
+      actions: []

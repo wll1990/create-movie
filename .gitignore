@@ -1,0 +1,37 @@
+# 环境变量（含 API Key）
+.env
+
+# 依赖
+node_modules/
+target/
+
+# 构建产物
+*.class
+*.jar
+*.war
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+
+# 日志
+logs/
+*.log
+
+# 上传和临时文件
+uploads/
+temp/
+
+# Claude 本地配置
+.claude/settings.local.json
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 前端构建
+frontend/dist/

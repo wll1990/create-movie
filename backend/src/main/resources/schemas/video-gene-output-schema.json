@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Video Gene Output",
+  "description": "LLM-generated video gene analysis structure",
+  "type": "object",
+  "required": ["track", "contentGene", "visualGene", "audioGene", "trafficGene"],
+  "properties": {
+    "track": { "type": "string" },
+    "contentGene": {
+      "type": "object",
+      "required": ["narrativePattern", "emotionalBeats", "tropeTags", "dialogueDensity"],
+      "properties": {
+        "narrativePattern": { "type": "string" },
+        "emotionalBeats": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "time": { "type": "number" },
+              "type": { "type": "string" },
+              "intensity": { "type": "number" }
+            }
+          }
+        },
+        "tropeTags": { "type": "array", "items": { "type": "string" } },
+        "dialogueDensity": { "type": "number" }
+      }
+    },
+    "visualGene": {
+      "type": "object",
+      "required": ["aspectRatio", "avgShotDuration", "shotSequence", "colorPalette"],
+      "properties": {
+        "aspectRatio": { "type": "string" },
+        "avgShotDuration": { "type": "number" },
+        "shotSequence": { "type": "array" },
+        "colorPalette": { "type": "string" },
+        "textOverlayRatio": { "type": "number" }
+      }
+    },
+    "audioGene": {
+      "type": "object",
+      "required": ["bgmStyle", "bgmBpm", "sfxTriggers", "speechRate"],
+      "properties": {
+        "bgmStyle": { "type": "string" },
+        "bgmBpm": { "type": "integer" },
+        "sfxTriggers": { "type": "array" },
+        "speechRate": { "type": "number" }
+      }
+    },
+    "trafficGene": {
+      "type": "object",
+      "required": ["hookType", "hookDuration", "retentionSpikes", "ctaStyle"],
+      "properties": {
+        "hookType": { "type": "string" },
+        "hookDuration": { "type": "integer" },
+        "retentionSpikes": { "type": "array", "items": { "type": "integer" } },
+        "ctaStyle": { "type": "string" }
+      }
+    }
+  }
+}

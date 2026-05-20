@@ -1,0 +1,39 @@
+{
+  "tracks": [
+    {
+      "name": "温馨治愈",
+      "fileName": "bgm_warm.mp3",
+      "category": "BGM",
+      "tags": ["warm", "healing", "温馨", "治愈", "日常"],
+      "metadata": { "style": "warm", "bpm": 80, "mood": "温馨治愈" }
+    },
+    {
+      "name": "紧张悬疑",
+      "fileName": "bgm_tense.mp3",
+      "category": "BGM",
+      "tags": ["tense", "suspense", "紧张", "悬疑"],
+      "metadata": { "style": "tense", "bpm": 120, "mood": "紧张悬疑" }
+    },
+    {
+      "name": "热血战斗",
+      "fileName": "bgm_action.mp3",
+      "category": "BGM",
+      "tags": ["action", "battle", "热血", "战斗"],
+      "metadata": { "style": "action", "bpm": 140, "mood": "热血战斗" }
+    },
+    {
+      "name": "悲伤抒情",
+      "fileName": "bgm_sad.mp3",
+      "category": "BGM",
+      "tags": ["sad", "emotional", "悲伤", "抒情"],
+      "metadata": { "style": "sad", "bpm": 60, "mood": "悲伤抒情" }
+    },
+    {
+      "name": "轻快日常",
+      "fileName": "bgm_light.mp3",
+      "category": "BGM",
+      "tags": ["light", "daily", "轻快", "日常"],
+      "metadata": { "style": "light", "bpm": 100, "mood": "轻快日常" }
+    }
+  ]
+}

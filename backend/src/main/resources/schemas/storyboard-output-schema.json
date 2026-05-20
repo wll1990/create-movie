@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Storyboard Output",
+  "description": "LLM-generated storyboard structure",
+  "type": "object",
+  "required": ["totalFrames", "frames"],
+  "properties": {
+    "totalFrames": { "type": "integer" },
+    "frames": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["frameNumber", "sceneNumber", "shotType", "bgDescription"],
+        "properties": {
+          "frameNumber": { "type": "integer" },
+          "sceneNumber": { "type": "integer" },
+          "shotType": { "type": "string" },
+          "cameraAngle": { "type": "string" },
+          "bgDescription": { "type": "string" },
+          "characters": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "characterName": { "type": "string" },
+                "expression": { "type": "string" },
+                "position": {
+                  "type": "object",
+                  "properties": {
+                    "x": { "type": "number" },
+                    "y": { "type": "number" }
+                  }
+                },
+                "scale": { "type": "number" },
+                "layer": { "type": "integer" }
+              }
+            }
+          },
+          "dialogueText": { "type": "string" },
+          "durationSec": { "type": "number" },
+          "transition": { "type": "string" }
+        }
+      }
+    }
+  }
+}

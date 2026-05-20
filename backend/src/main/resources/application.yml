@@ -1,0 +1,113 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: make-movie
+  datasource:
+    url: jdbc:postgresql://localhost:5432/make_movie
+    username: ${DB_USERNAME:admin}
+    password: ${DB_PASSWORD:password}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      llm:
+        failure-rate-threshold: 50
+        sliding-window-size: 10
+        minimum-number-of-calls: 5
+        wait-duration-in-open-state: 60s
+        permitted-number-of-calls-in-half-open-state: 2
+  retry:
+    instances:
+      llm:
+        max-attempts: 3
+        wait-duration: 1s
+        exponential-backoff-multiplier: 2
+
+minio:
+  endpoint: ${MINIO_ENDPOINT:http://localhost:9000}
+  access-key: ${MINIO_ACCESS_KEY:minioadmin}
+  secret-key: ${MINIO_SECRET_KEY:minioadmin}
+  bucket-name: ${MINIO_BUCKET:assets}
+
+oss:
+  endpoint: ${OSS_ENDPOINT:}
+  access-key-id: ${OSS_ACCESS_KEY_ID:}
+  access-key-secret: ${OSS_ACCESS_KEY_SECRET:}
+  bucket-name: ${OSS_BUCKET_NAME:make-movie-assets}
+
+llm:
+  api-key: ${LLM_API_KEY:}
+  api-base: ${LLM_API_BASE:https://api.example.com/v1}
+  model: ${LLM_MODEL:gpt-4o}
+  # 多模态模型配置（可选，用于爆款分析看图）
+  # 需要 base + key + model 三者都填才会启用，否则退化为纯文本
+  vision-api-base: ${LLM_VISION_API_BASE:}
+  vision-api-key: ${LLM_VISION_API_KEY:}
+  vision-model: ${LLM_VISION_MODEL:}
+  timeout:
+    connect: 10s
+    read: 120s
+
+image-gen:
+  api-key: ${IMAGE_GEN_API_KEY:}
+  api-base: ${IMAGE_GEN_API_BASE:}
+  model: ${IMAGE_GEN_MODEL:stable-diffusion-xl}
+  max-parallel-poll: ${IMAGE_GEN_POLL_PARALLEL:5}
+  poll-interval-ms: ${IMAGE_GEN_POLL_INTERVAL:3000}
+
+tts:
+  provider: ${TTS_PROVIDER:edge}
+  edge-tts:
+    voice: ${TTS_VOICE:zh-CN-XiaoxiaoNeural}
+    rate: ${TTS_RATE:0}
+    pitch: ${TTS_PITCH:0}
+  huoshan:
+    app-id: ${TTS_HUOSHAN_APP_ID:}
+    access-token: ${TTS_HUOSHAN_ACCESS_TOKEN:}
+
+speech-to-text:
+  provider: ${STT_PROVIDER:whisper}
+  api-key: ${STT_API_KEY:}
+  api-base: ${STT_API_BASE:}
+
+video-gen:
+  api-key: ${VIDEO_GEN_API_KEY:}
+  api-base: ${VIDEO_GEN_API_BASE:https://dashscope.aliyuncs.com}
+  model: ${VIDEO_GEN_MODEL:wan2.7-i2v}
+  max-poll-attempts: ${VIDEO_GEN_POLL_ATTEMPTS:60}
+  poll-interval-ms: ${VIDEO_GEN_POLL_INTERVAL:5000}
+  max-parallel: ${VIDEO_GEN_MAX_PARALLEL:1}
+
+storage:
+  upload-dir: ./uploads
+  temp-dir: ./temp
+
+video:
+  composition:
+    max-parallel-tasks: 2
+    poll-interval-ms: 5000
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+logging:
+  level:
+    com.example.makemovie: DEBUG
+    org.hibernate.SQL: WARN

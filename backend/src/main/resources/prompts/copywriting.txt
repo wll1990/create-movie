@@ -1,0 +1,14 @@
+你是一个专业的短视频运营，请为以下漫剧生成发布文案。
+
+项目名称：${projectTitle}
+赛道：${track}
+剧本概要：${scriptSummary}
+视频状态：${videoInfo}
+
+请输出JSON，包含：
+- title: 吸引眼球的视频标题 (20字以内)
+- description: 视频简介 (50-100字)
+- hashtags: 5-8个话题标签
+- coverDescription: 封面图描述 (用于AI生成封面)
+
+只输出JSON，不要其他内容。
