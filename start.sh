@@ -36,13 +36,14 @@ trap cleanup EXIT INT TERM
 # ============================================================
 step "1/5 检查前置依赖"
 
-# Java 21
-JAVA_HOME="${JAVA_HOME:-/opt/homebrew/opt/openjdk@21}"
-if [ -x "$JAVA_HOME/bin/java" ]; then
+# Java 21 — 强制使用，不沿用系统默认的 JAVA_HOME
+JAVA21_HOME="/opt/homebrew/opt/openjdk@21"
+if [ -x "$JAVA21_HOME/bin/java" ]; then
+    export JAVA_HOME="$JAVA21_HOME"
     JAVA_VER=$("$JAVA_HOME/bin/java" -version 2>&1 | head -1)
     log "Java:  $JAVA_VER"
 else
-    err "未找到 Java 21，请设置 JAVA_HOME 或安装 openjdk@21"
+    err "未找到 Java 21，请安装 openjdk@21"
     err "  brew install openjdk@21"
     exit 1
 fi
@@ -93,7 +94,6 @@ if [ -z "$LLM_API_KEY" ]; then
 fi
 
 # 确保 Homebrew 路径在 PATH 中
-export JAVA_HOME="${JAVA_HOME:-/opt/homebrew/opt/openjdk@21}"
 export PATH="/opt/homebrew/bin:/opt/homebrew/opt/postgresql@15/bin:$JAVA_HOME/bin:$PATH"
 
 # ============================================================
@@ -145,15 +145,15 @@ step "4/5 启动后端 (Spring Boot)"
 
 cd "$BACKEND_DIR"
 
-# 首次运行自动编译
+# 首次运行自动编译（跳过测试编译）
 if [ ! -f "target/make-movie-0.1.0-SNAPSHOT.jar" ]; then
     log "首次启动，正在编译后端..."
-    mvn package -DskipTests -q
+    mvn package -Dmaven.test.skip=true -q
 fi
 
 log "后端启动中..."
 
-mvn spring-boot:run -q 2>&1 &
+"$JAVA_HOME/bin/java" -jar target/make-movie-0.1.0-SNAPSHOT.jar --spring.profiles.active=dev 2>&1 &
 BACKEND_PID=$!
 
 # 等待后端就绪
